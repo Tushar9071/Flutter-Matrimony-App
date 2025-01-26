@@ -1,0 +1,8 @@
+const String NAME = 'Name';
+const String EMAIL = 'Email';
+const String AGE = 'Age';
+const String CITY = 'City';
+const String PHONE = 'Phone';
+const String DOB = 'Dob';
+const String GENDER = 'Gender';
+const String ISFAVORITE = 'IsFavorite';
