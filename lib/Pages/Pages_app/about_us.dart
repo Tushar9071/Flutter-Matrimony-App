@@ -5,25 +5,19 @@ class AboutUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple,
-        title: const Text("About Us"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        backgroundColor: Colors.black,
+        title: const Text("About Us",style: TextStyle(color: Colors.white),),
+
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Logo and Title
             Column(
               children: [
                 const CircleAvatar(
-                  backgroundImage: AssetImage('assets/typing_tutor_logo.png'),
+                  backgroundImage: AssetImage('assets/'),
                   radius: 40,
                 ),
                 const SizedBox(height: 8),
@@ -32,20 +26,19 @@ class AboutUsPage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.purple,
+                    color: Colors.black,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
 
-            // Meet Our Team Section
             Text(
               "Meet Our Team",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.purple,
+                color: Colors.black,
               ),
             ),
             Card(
@@ -58,8 +51,10 @@ class AboutUsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildKeyValueRow("Developed by", "Tushar Rajpara "
-                        "(23031701044)"),
+                    _buildKeyValueRow(
+                        "Developed by",
+                        "Tushar Rajpara "
+                            "(23031701044)"),
                     _buildKeyValueRow(
                       "Mentored by",
                       "Prof. Mehul Bhundiya (Computer Engineering Department), "
@@ -79,13 +74,13 @@ class AboutUsPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // About ASWDC Section
+
             Text(
               "About ASWDC",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.purple,
+                color: Colors.black,
               ),
             ),
             Card(
@@ -119,13 +114,12 @@ class AboutUsPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // Contact Us Section
             Text(
               "Contact Us",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.purple,
+                color: Colors.black,
               ),
             ),
             Card(
@@ -146,7 +140,7 @@ class AboutUsPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // Footer Links
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -158,7 +152,6 @@ class AboutUsPage extends StatelessWidget {
               ],
             ),
 
-            // Footer Text
             const SizedBox(height: 20),
             const Text(
               "© 2025 Darshan University\nAll Rights Reserved - Privacy Policy\nMade with ❤️ in India",
@@ -192,7 +185,7 @@ class AboutUsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          Icon(icon, color: Colors.purple),
+          Icon(icon, color: Colors.black),
           const SizedBox(width: 8),
           Expanded(child: Text(text)),
         ],
@@ -203,7 +196,7 @@ class AboutUsPage extends StatelessWidget {
   Widget _buildFooterIcon(IconData icon, String label) {
     return Column(
       children: [
-        Icon(icon, color: Colors.purple),
+        Icon(icon, color: Colors.black),
         const SizedBox(height: 4),
         Text(
           label,

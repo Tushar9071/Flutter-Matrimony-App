@@ -14,7 +14,6 @@ class _FavoritePageState extends State<FavoritePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Filter the list to show only favorite users
     List favoriteList =
         user_List.where((user) => user[ISFAVORITE] == true).toList();
 

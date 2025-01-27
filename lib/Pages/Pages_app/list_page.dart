@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:submition/Pages/Pages_app/user_details.dart';
 import 'package:submition/utils/string_const.dart';
 import 'package:submition/utils/temp_date.dart';
 
@@ -16,6 +17,20 @@ class _ListPageState extends State<ListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return UserDetail();
+                    },
+                  ),
+                );
+              },
+              icon: Icon(Icons.add))
+        ],
         title: Text(
           'List Of Users',
           style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -79,7 +94,11 @@ class _ListPageState extends State<ListPage> {
                     IconButton(
                       icon: Icon(Icons.edit, color: Colors.blue),
                       onPressed: () {
-                        // Add edit action here
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return UserDetail();
+                          },
+                        ));
                       },
                     ),
                     IconButton(
