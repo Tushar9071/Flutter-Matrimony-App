@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:submition/Pages/Pages_app/user_details.dart';
 import 'package:submition/utils/string_const.dart';
@@ -27,9 +28,12 @@ class _ListPageState extends State<ListPage> {
                       return UserDetail();
                     },
                   ),
-                );
+                ).then((value) {
+                  userList.add(value);
+                  setState(() {});
+                });
               },
-              icon: Icon(Icons.add))
+              icon: Icon(Icons.person_add))
         ],
         title: Text(
           'List Of Users',
@@ -87,7 +91,7 @@ class _ListPageState extends State<ListPage> {
                         setState(() {
                           user_List[index][ISFAVORITE] =
                               !user_List[index][ISFAVORITE];
-                          print(':::${user_List[index][ISFAVORITE]}:::');
+                          // print(':::${user_List[index][ISFAVORITE]}:::');
                         });
                       },
                     ),
@@ -96,15 +100,61 @@ class _ListPageState extends State<ListPage> {
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
-                            return UserDetail();
+                            return UserDetail(
+                              name: user_List[index][NAME],
+                              email: user_List[index][EMAIL],
+                              gender: user_List[index][GENDER],
+                              deb: user_List[index][DOB],
+                              password: user_List[index][PASSWORD],
+                              phone: user_List[index][PHONE],
+                              city: user_List[index][CITY],
+                              hobbies: user_List[index][HOBBIES],
+                            );
                           },
-                        ));
+                        )).then((value){
+                          user_List[index][NAME] = value[NAME];
+                          user_List[index][EMAIL] = value[EMAIL];
+                          user_List[index][PASSWORD]  = value[PASSWORD];
+                          user_List[index][PHONE] = value[PHONE];
+                          user_List[index][GENDER] = value[GENDER];
+                          user_List[index][AGE] = value[AGE];
+                          user_List[index][CITY] = value[CITY];
+                          user_List[index][HOBBIES] = value[HOBBIES];
+                          user_List[index][ISFAVORITE] = value[ISFAVORITE];
+                          user_List[index][DOB] = value[DOB];
+                        });
                       },
                     ),
                     IconButton(
                       icon: Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
-                        // Add delete action here
+                        showCupertinoDialog(
+                          context: context,
+                          builder: (context) {
+                            return CupertinoAlertDialog(
+                              title: Text('Delete User'),
+                              content: Text(
+                                  'Are you sure you want to delete this user?'),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: Text('Cancel'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                CupertinoDialogAction(
+                                  isDestructiveAction: true,
+                                  child: Text('Agree'),
+                                  onPressed: () {
+                                    user_List.removeAt(index);
+                                    Navigator.pop(context);
+                                    setState(() {});
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                     ),
                   ],
@@ -112,7 +162,6 @@ class _ListPageState extends State<ListPage> {
               ],
             ),
             const SizedBox(height: 8),
-            // Email
             Row(
               children: [
                 Icon(Icons.email, color: Colors.grey),
@@ -124,7 +173,6 @@ class _ListPageState extends State<ListPage> {
               ],
             ),
             const SizedBox(height: 8),
-            // Phone Number
             Row(
               children: [
                 Icon(Icons.phone, color: Colors.grey),
@@ -136,7 +184,6 @@ class _ListPageState extends State<ListPage> {
               ],
             ),
             const SizedBox(height: 8),
-            // Gender, Age, City
             Row(
               children: [
                 Icon(Icons.person, color: Colors.grey),

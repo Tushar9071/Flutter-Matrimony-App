@@ -10,42 +10,47 @@ class HomePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 300,
-            decoration: BoxDecoration(),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 14),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end, // Center aligns text
-                children: [
-                  Text(
-                    'Welcome',
-                    style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'To',
-                        style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Our',
-                        style: TextStyle(
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.only(top: 60),
+            child: Container(
+              decoration: BoxDecoration(),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end, // Center aligns text
+                  children: [
+                    Text(
+                      'Welcome',
+                      style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 115),
+                          child: Text(
+                            'To',
+                            style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 14,)
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Our',
+                          style: TextStyle(
+                            fontSize: 60,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 14,)
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

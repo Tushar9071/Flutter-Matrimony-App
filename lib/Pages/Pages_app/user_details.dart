@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // For date formatting
+import 'package:intl/intl.dart';
+import 'package:submition/utils/string_const.dart'; // For date formatting
 
 class UserDetail extends StatefulWidget {
   final String? name;
   final String? email;
   final String? password;
+  final String? city;
   final String? phone;
   final String? gender;
   final String? deb;
+  final List<String>? hobbies;
 
-  const UserDetail({super.key,
-    this.name,
-    this.email,
-    this.password,
-    this.phone,
-    this.gender,
-    this.deb});
+  const UserDetail(
+      {super.key,
+      this.name,
+      this.email,
+      this.password,
+      this.city,
+      this.phone,
+      this.gender,
+      this.deb,
+      this.hobbies});
 
   @override
   State<UserDetail> createState() => _UserDetailState();
@@ -24,18 +30,17 @@ class UserDetail extends StatefulWidget {
 class _UserDetailState extends State<UserDetail> {
   final _formKey = GlobalKey<FormState>();
 
-  // Form field controllers
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
 
   String? _selectedGender;
   String? _selectedCity;
-  final List<String> _hobbies = [];
+  List<String> _hobbies = [];
 
   final List<String> cities = ['Rajkot', 'Ahmadabad', 'Jamnagar', 'Morbi'];
   final List<String> hobbiesOptions = [
@@ -46,10 +51,23 @@ class _UserDetailState extends State<UserDetail> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _nameController.text = widget.name ?? '';
+    _emailController.text = widget.email ?? '';
+    _passwordController.text = widget.password ?? '';
+    _phoneController.text = widget.phone ?? '';
+    _dobController.text = widget.deb ?? '';
+    _selectedGender = widget.gender;
+    _selectedCity = widget.city;
+    _hobbies = widget.hobbies ?? [];
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Input Form'),
+        title: _nameController.text.isEmpty?Text('Input Form'):Text('Update User'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -59,19 +77,18 @@ class _UserDetailState extends State<UserDetail> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Full Name
                 TextFormField(
                   controller: _nameController,
                   decoration: const InputDecoration(labelText: 'Full Name'),
                   validator: (value) {
-                    if (value == null || value.isEmpty || !RegExp(r"^[a-zA-Z\s'-]{3,50}$").hasMatch(value)) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        !RegExp(r"^[a-zA-Z\s'-]{3,50}$").hasMatch(value)) {
                       return 'Please enter your full name';
                     }
                     return null;
                   },
                 ),
-
-                // Email
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(labelText: 'Email'),
@@ -79,15 +96,13 @@ class _UserDetailState extends State<UserDetail> {
                   validator: (value) {
                     if (value == null ||
                         value.isEmpty ||
-                        !RegExp(r'^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}\$')
+                        !RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
                             .hasMatch(value)) {
                       return 'Please enter a valid email';
                     }
                     return null;
                   },
                 ),
-
-                // Password
                 TextFormField(
                   controller: _passwordController,
                   decoration: const InputDecoration(labelText: 'Password'),
@@ -99,12 +114,10 @@ class _UserDetailState extends State<UserDetail> {
                     return null;
                   },
                 ),
-
-                // Confirm Password
                 TextFormField(
                   controller: _confirmPasswordController,
                   decoration:
-                  const InputDecoration(labelText: 'Confirm Password'),
+                      const InputDecoration(labelText: 'Confirm Password'),
                   obscureText: true,
                   validator: (value) {
                     if (value != _passwordController.text) {
@@ -113,8 +126,6 @@ class _UserDetailState extends State<UserDetail> {
                     return null;
                   },
                 ),
-
-                // Phone Number
                 TextFormField(
                   controller: _phoneController,
                   decoration: const InputDecoration(labelText: 'Phone Number'),
@@ -122,14 +133,12 @@ class _UserDetailState extends State<UserDetail> {
                   validator: (value) {
                     if (value == null ||
                         value.length != 10 ||
-                        !RegExp(r'^\d{10}\$').hasMatch(value)) {
+                        !RegExp(r'^\+?1?\d{10}$').hasMatch(value)) {
                       return 'Please enter a valid 10-digit phone number';
                     }
                     return null;
                   },
                 ),
-
-                // Gender
                 const Padding(
                   padding: EdgeInsets.only(top: 16.0),
                   child: Text('Gender:'),
@@ -158,16 +167,14 @@ class _UserDetailState extends State<UserDetail> {
                     const Text('Female'),
                   ],
                 ),
-
-                // City
                 DropdownButtonFormField(
+                  value: _selectedCity,
                   decoration: const InputDecoration(labelText: 'City'),
                   items: cities
-                      .map((city) =>
-                      DropdownMenuItem(
-                        value: city,
-                        child: Text(city),
-                      ))
+                      .map((city) => DropdownMenuItem(
+                            value: city,
+                            child: Text(city),
+                          ))
                       .toList(),
                   onChanged: (value) {
                     setState(() {
@@ -181,32 +188,27 @@ class _UserDetailState extends State<UserDetail> {
                     return null;
                   },
                 ),
-
-                // Hobbies
                 const Padding(
                   padding: EdgeInsets.only(top: 16.0),
                   child: Text('Hobbies:'),
                 ),
                 Column(
-                  children: hobbiesOptions
-                      .map((hobby) =>
-                      CheckboxListTile(
-                        title: Text(hobby),
-                        value: _hobbies.contains(hobby),
-                        onChanged: (isChecked) {
-                          setState(() {
-                            if (isChecked == true) {
-                              _hobbies.add(hobby);
-                            } else {
-                              _hobbies.remove(hobby);
-                            }
-                          });
-                        },
-                      ))
-                      .toList(),
+                  children: hobbiesOptions.map((hobby) {
+                    return CheckboxListTile(
+                      title: Text(hobby),
+                      value: _hobbies.contains(hobby),
+                      onChanged: (isChecked) {
+                        setState(() {
+                          if (isChecked == true) {
+                            _hobbies.add(hobby);
+                          } else {
+                            _hobbies.remove(hobby);
+                          }
+                        });
+                      },
+                    );
+                  }).toList(),
                 ),
-
-                // Date of Birth
                 TextFormField(
                   controller: _dobController,
                   decoration: const InputDecoration(labelText: 'Date of Birth'),
@@ -220,9 +222,7 @@ class _UserDetailState extends State<UserDetail> {
                     );
 
                     if (pickedDate != null) {
-                      final age = DateTime
-                          .now()
-                          .year - pickedDate.year;
+                      final age = DateTime.now().year - pickedDate.year;
                       if (age < 18) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -241,21 +241,35 @@ class _UserDetailState extends State<UserDetail> {
                     return null;
                   },
                 ),
-
-                // Submit Button
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Center(
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
+
+                          Map<String, dynamic> m = {};
+                          m[NAME] = _nameController.text;
+                          m[EMAIL] = _emailController.text;
+                          m[PASSWORD] = _passwordController.text;
+                          m[PHONE] = _phoneController.text;
+                          m[GENDER] = _selectedGender;
+                          m[ISFAVORITE] = false;
+                          m[CITY] = _selectedCity;
+                          m[HOBBIES] = _hobbies;
+                          m[DOB] = _dobController.text;
+                          m[AGE] = DateTime.now().year -
+                              int.parse(_dobController.text.split('-')[0]);
+                          // print(":::$m:::");
+                          Navigator.pop(context, m);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text('Form Submitted Successfully!')),
                           );
                         }
                       },
-                      child: const Text('Submit'),
+                      child: _nameController.text.isEmpty?Text('Submit'):Text
+                        ('Update'),
                     ),
                   ),
                 ),

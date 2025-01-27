@@ -6,3 +6,5 @@ const String PHONE = 'Phone';
 const String DOB = 'Dob';
 const String GENDER = 'Gender';
 const String ISFAVORITE = 'IsFavorite';
+const String HOBBIES = 'Hobbies';
+const String PASSWORD = 'Password';
