@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:submition/Pages/main_page.dart';
 
+import 'Pages/Pages_app/user_detail.dart';
+
 void main() {
   runApp(const MyApp());
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:submition/utils/string_const.dart'; // For date formatting
 
-class UserDetail extends StatefulWidget {
+class UserForm extends StatefulWidget {
   final String? name;
   final String? email;
   final String? password;
@@ -12,7 +12,7 @@ class UserDetail extends StatefulWidget {
   final String? deb;
   final List<String>? hobbies;
 
-  const UserDetail(
+  const UserForm(
       {super.key,
       this.name,
       this.email,
@@ -24,10 +24,10 @@ class UserDetail extends StatefulWidget {
       this.hobbies});
 
   @override
-  State<UserDetail> createState() => _UserDetailState();
+  State<UserForm> createState() => _UserFormState();
 }
 
-class _UserDetailState extends State<UserDetail> {
+class _UserFormState extends State<UserForm> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
@@ -67,7 +67,7 @@ class _UserDetailState extends State<UserDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: _nameController.text.isEmpty?Text('Input Form'):Text('Update User'),
+        title: _nameController.text == ''?Text('Input Form'):Text('Update User'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -179,6 +179,7 @@ class _UserDetailState extends State<UserDetail> {
                   onChanged: (value) {
                     setState(() {
                       _selectedCity = value;
+                      print(':::$_selectedCity');
                     });
                   },
                   validator: (value) {
@@ -268,7 +269,7 @@ class _UserDetailState extends State<UserDetail> {
                           );
                         }
                       },
-                      child: _nameController.text.isEmpty?Text('Submit'):Text
+                      child: _nameController.text == ''?Text('Submit'):Text
                         ('Update'),
                     ),
                   ),
